@@ -23,6 +23,13 @@
 	--danger-color: var(--mavxa-danger);
 	--warning-color: var(--mavxa-warning);
 	--success-color: var(--mavxa-accent);
+	--background-color-low: var(--mavxa-border);
+	--text-color-high: var(--mavxa-text);
+	--primary-color-high: var(--mavxa-accent);
+	--primary-color-low: var(--mavxa-muted);
+	--success-color-medium: var(--mavxa-accent);
+	--warn-color-medium: var(--mavxa-warning);
+	--error-color-medium: var(--mavxa-danger);
 	color-scheme: dark;
 }
 
@@ -167,9 +174,17 @@ h3, legend { font-size: 16px; font-weight: 600; }
 .cbi-map-descr, .cbi-section-descr, .cbi-value-description, .cbi-section-table-descr { color: var(--mavxa-muted); }
 .cbi-section { border: 1px solid var(--mavxa-border); border-radius: 8px; background: var(--mavxa-surface); padding: 20px; margin: 24px 0; }
 .cbi-section > legend { padding: 0 8px; }
+.cbi-section[data-tab-active="false"] { display: none; }
 .cbi-value { border-color: var(--mavxa-border); padding-top: 8px; padding-bottom: 8px; margin-bottom: 12px; }
 .cbi-value > label:first-child { flex: 0 0 200px; }
 .cbi-value > .cbi-value-field { flex: 1 1 280px; min-width: 0; }
+.cbi-value > output { display: block; flex: 1; min-width: 0; }
+.cbi-dynlist { width: 100%; max-width: 100%; min-width: 0; font-size: 13px; line-height: 1.6; }
+.cbi-dynlist > .item { padding: 8px 44px 8px 12px; }
+.cbi-dynlist > .item::after { width: 32px; background: var(--mavxa-bg); color: var(--mavxa-danger); border-left: 1px solid var(--mavxa-border); box-shadow: none; }
+.cbi-dynlist > .add-item { min-width: 0; max-width: 100%; width: 100%; flex: 1 1 100%; }
+/* The base control-group rule forces an intrinsic minimum width. */
+.cbi-dynlist > .add-item > input { min-width: 0 !important; width: 0; flex: 1 1 0; }
 .cbi-value-title { font-size: 14px; }
 .cbi-value-description { font-size: 12px; line-height: 1.6; }
 
@@ -263,6 +278,16 @@ pre, code, #syslog, textarea[readonly], .cbi-input-textarea {
 #syslog { width: 100%; min-height: 55vh; white-space: pre-wrap; overflow-wrap: anywhere; }
 pre { overflow-x: auto; background: var(--mavxa-bg); padding: 12px; border: 1px solid var(--mavxa-border); border-radius: 6px; }
 
+#cbi-podkop :is(.pdk_dashboard-page__widgets-section__item,
+	.pdk_dashboard-page__outbound-section, .pdk_dashboard-page__outbound-grid__item,
+	.pdk_diagnostic_alert, .pdk_diagnostic-page__right-bar__wiki,
+	.pdk_diagnostic-page__right-bar__actions, .pdk_diagnostic-page__right-bar__system-info) {
+	border-width: 1px;
+	border-radius: 8px;
+}
+
+#cbi-podkop :is(.pdk_dashboard-page__widgets-section > *, .pdk_dashboard-page__outbound-grid > *) { min-width: 0; }
+
 @media (max-width: 900px) {
 	#menubar { padding-left: 20px; padding-right: 20px; }
 	#maincontent { padding: 24px 20px; }
@@ -284,8 +309,11 @@ pre { overflow-x: auto; background: var(--mavxa-bg); padding: 12px; border: 1px 
 	.cbi-value-title, .cbi-value-field { float: none; width: 100%; margin-left: 0; text-align: left; }
 	.cbi-value > label:first-child, .cbi-value > .cbi-value-field { flex: 1 1 100%; }
 	.cbi-value-title { margin-bottom: 6px; }
+	.cbi-dynlist > .item { padding-right: 52px; }
+	.cbi-dynlist > .item::after, .cbi-dynlist > .add-item > .btn { width: 44px; flex-basis: 44px; }
 	#modal_overlay > .modal { width: calc(100% - 24px); padding: 16px; margin-top: 24px; }
 	#syslog { min-height: 50vh; }
+	#cbi-podkop .pdk_dashboard-page { --dashboard-grid-columns: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
