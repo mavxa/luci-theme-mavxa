@@ -1,6 +1,6 @@
 # luci-theme-mavxa
 
-A minimal LuCI theme with graphite surfaces, a mint accent, light and dark modes, and readable forms and logs. The palette comes from [mavxa.ru](https://mavxa.ru).
+A minimal LuCI theme with graphite surfaces, a mint accent, light and dark modes, and readable forms and logs.
 
 The first implementation provides a native LuCI shell, responsive navigation, dark/light/auto modes, forms, tables, dialogs, and log styling. It is based on OpenWrt's maintained 2020 theme layout. Nothing has been installed on a router.
 
