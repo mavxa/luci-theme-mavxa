@@ -10,5 +10,5 @@ Revision: 75a306df84a020c57a631ef5b4c02ace56d93387
 Directory: themes/luci-theme-openwrt-2020
 
 The mavxa templates are adapted. base.css omits the unused bundled font
-declaration; the supporting icons are unchanged. menu-mavxa.js retains
+declaration and normalizes whitespace; the supporting icons are unchanged. menu-mavxa.js retains
 the upstream navigation behavior.

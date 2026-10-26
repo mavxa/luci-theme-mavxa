@@ -361,8 +361,8 @@ tr.placeholder > td {
  */
 
  #cbi-wireless-wifi-device .ifacebadge {
- 	flex-direction: column;
- 	justify-content: space-around;
+	flex-direction: column;
+	justify-content: space-around;
  }
 
 .assoclist td,
@@ -544,7 +544,7 @@ tr.placeholder > td {
 }
 
 .nowrap:not(span) {
-/*	Sometimes you need to wrap: badges on narrow screens look weird 
+/*	Sometimes you need to wrap: badges on narrow screens look weird
 	and nowrap defeats other width constraints, so exclude span */
 	white-space: nowrap !important;
 }
