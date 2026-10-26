@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#09090b">
+	<title>mavxa LuCI theme preview</title>
+	<link rel="stylesheet" href="../htdocs/luci-static/mavxa/cascade.css">
+	<script src="../htdocs/luci-static/mavxa/theme.js"></script>
+</head>
+<body data-page="admin-system-system">
+	<header id="menubar">
+		<button id="navigation" class="navigation" type="button" aria-controls="mainmenu" aria-expanded="false">Menu</button>
+		<span class="hostname">OpenWrt</span>
+		<span class="distversion">Component preview · demo data</span>
+		<span id="indicators"></span>
+		<button id="mavxa-theme-toggle" type="button">Theme: Dark</button>
+	</header>
+	<div id="maincontainer">
+		<nav id="mainmenu" aria-label="Main navigation">
+			<a class="mavxa-brand" href="#forms">mavxa <span>/ OpenWrt</span></a>
+			<div><ul class="mainmenu l1">
+				<li class="selected"><a href="#forms">System</a><ul class="mainmenu l2">
+					<li class="selected"><a href="#forms">Settings</a></li>
+					<li><a href="#logs">System logs</a></li>
+				</ul></li>
+				<li><a href="#interfaces">Network</a></li>
+			</ul></div>
+		</nav>
+		<button id="mavxa-menu-overlay" type="button" tabindex="-1" aria-label="Close navigation"></button>
+		<main id="maincontent">
+			<div class="cbi-map" id="forms">
+				<h2>System settings</h2>
+				<div class="cbi-map-descr">Native LuCI components with the mavxa palette. This page does not connect to a router.</div>
+				<ul class="cbi-tabmenu"><li class="cbi-tab"><a href="#forms">General settings</a></li><li><a href="#logs">Logs</a></li></ul>
+				<section class="cbi-section">
+					<h3>General settings</h3>
+					<div class="cbi-value"><label class="cbi-value-title" for="hostname">Hostname</label><div class="cbi-value-field"><input id="hostname" type="text" value="OpenWrt"><div class="cbi-value-description">The name shown in your network.</div></div></div>
+					<div class="cbi-value"><label class="cbi-value-title" for="timezone">Timezone</label><div class="cbi-value-field"><select id="timezone"><option>Europe/Moscow</option><option>UTC</option></select></div></div>
+					<div class="cbi-value"><label class="cbi-value-title" for="example-key">Proxy configuration</label><div class="cbi-value-field"><input id="example-key" type="password" value="demo-data-only" autocomplete="off"><div class="cbi-value-description">An example field to check long values and password rendering.</div></div></div>
+					<div class="cbi-value cbi-value-error"><label class="cbi-value-title" for="invalid-ip">IPv4 address</label><div class="cbi-value-field"><input id="invalid-ip" class="cbi-input-invalid" value="192.0.2.999" aria-invalid="true" aria-describedby="ip-error"><div class="cbi-value-description" id="ip-error">Enter a valid IPv4 address.</div></div></div>
+					<div class="cbi-value"><label class="cbi-value-title" for="enable">Enable interface</label><div class="cbi-value-field"><input id="enable" type="checkbox" checked></div></div>
+				</section>
+				<div class="alert-message warning"><h4>Unsaved changes</h4><p>This is a preview of a warning. No configuration has been changed.</p></div>
+			</div>
+			<section class="cbi-section" id="interfaces">
+				<h3>Interfaces</h3>
+				<table class="table cbi-section-table">
+					<thead><tr class="tr table-titles"><th class="th">Interface</th><th class="th">Device</th><th class="th">Address</th><th class="th">Status</th></tr></thead>
+					<tbody>
+						<tr class="tr"><td class="td" data-title="Interface">WAN</td><td class="td" data-title="Device">eth1</td><td class="td" data-title="Address">192.0.2.10</td><td class="td" data-title="Status">Connected</td></tr>
+						<tr class="tr"><td class="td" data-title="Interface">LAN</td><td class="td" data-title="Device">br-lan</td><td class="td" data-title="Address">192.168.1.1</td><td class="td" data-title="Status">Connected</td></tr>
+					</tbody>
+				</table>
+			</section>
+			<section class="cbi-section" id="logs">
+				<h3>System logs</h3>
+				<p class="cbi-section-descr">Example records for font, wrapping and selection checks.</p>
+				<textarea id="syslog" readonly aria-label="System logs">Tue Oct 27 00:42:00 2026 daemon.notice netifd: Interface 'wan' is now up
+Tue Oct 27 00:42:01 2026 daemon.info dnsmasq: using nameserver 192.0.2.53#53
+Tue Oct 27 00:42:02 2026 daemon.warn sing-box: connection to 203.0.113.30 timed out after 5000ms
+Tue Oct 27 00:42:03 2026 daemon.info podkop: demo connection selected: 198.51.100.20</textarea>
+			</section>
+			<div class="cbi-page-actions"><button class="cbi-button cbi-button-apply" id="preview-dialog">Preview dialog</button><button class="cbi-button" disabled>Save · preview only</button></div>
+		</main>
+	</div>
+	<p class="luci">mavxa theme · component preview</p>
+	<div id="modal_overlay"><div class="modal" role="dialog" aria-modal="true" aria-label="Apply changes preview"><h4>Apply changes</h4><p>This preview does not save or apply router settings.</p><div class="button-row"><button class="cbi-button" id="close-preview-dialog">Cancel</button></div></div></div>
+	<script>
+		document.getElementById('navigation').addEventListener('click', function () {
+			document.getElementById('mainmenu').classList.toggle('active');
+			this.classList.toggle('active');
+		});
+		document.getElementById('preview-dialog').addEventListener('click', function () {
+			document.body.classList.add('modal-overlay-active');
+			document.getElementById('close-preview-dialog').focus();
+		});
+		function closeDialog() {
+			document.body.classList.remove('modal-overlay-active');
+			document.getElementById('preview-dialog').focus();
+		}
+		document.getElementById('close-preview-dialog').addEventListener('click', closeDialog);
+		document.addEventListener('keydown', function (event) {
+			if (event.key === 'Escape' && document.body.classList.contains('modal-overlay-active')) closeDialog();
+		});
+	</script>
+</body>
+</html>

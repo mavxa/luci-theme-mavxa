@@ -1,0 +1,25 @@
+name: Check theme
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: '22'
+      - name: Check JavaScript syntax
+        run: |
+          node --check htdocs/luci-static/mavxa/theme.js
+          node --check htdocs/luci-static/resources/menu-mavxa.js
+      - name: Check registration script
+        run: sh -n root/etc/uci-defaults/30_luci-theme-mavxa
+      - name: Test theme behavior
+        run: node --test tests/theme.test.mjs

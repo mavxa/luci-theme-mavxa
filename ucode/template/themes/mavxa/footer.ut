@@ -1,0 +1,17 @@
+{#
+ Copyright 2020 Jo-Philipp Wich <jo@mein.io>
+ Copyright 2026 Nikita Shilov
+ Licensed to the public under the Apache License 2.0.
+-#}
+
+</main>
+</div>
+
+<p class="luci">
+	Powered by {{ version.luciname }} ({{ version.luciversion }})
+</p>
+
+<script>L.require('menu-mavxa')</script>
+
+</body>
+</html>
