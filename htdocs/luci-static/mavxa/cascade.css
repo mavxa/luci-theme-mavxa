@@ -174,7 +174,7 @@ h3, legend { font-size: 16px; font-weight: 600; }
 .cbi-map-descr, .cbi-section-descr, .cbi-value-description, .cbi-section-table-descr { color: var(--mavxa-muted); }
 .cbi-section { border: 1px solid var(--mavxa-border); border-radius: 8px; background: var(--mavxa-surface); padding: 20px; margin: 24px 0; }
 .cbi-section > legend { padding: 0 8px; }
-.cbi-section[data-tab-active="false"] { display: none; }
+.cbi-section[data-tab]:not([data-tab-active="true"]) { display: none; }
 .cbi-value { border-color: var(--mavxa-border); padding-top: 8px; padding-bottom: 8px; margin-bottom: 12px; }
 .cbi-value > label:first-child { flex: 0 0 200px; }
 .cbi-value > .cbi-value-field { flex: 1 1 280px; min-width: 0; }
