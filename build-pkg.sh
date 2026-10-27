@@ -2,12 +2,19 @@
 # SPDX-License-Identifier: Apache-2.0
 set -eu
 
-project_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+project_dir=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
 version=$(sed -n 's/^PKG_VERSION:=//p' "$project_dir/Makefile")
 release=$(sed -n 's/^PKG_RELEASE:=//p' "$project_dir/Makefile")
 mkdir -p "$project_dir/dist"
 
+set --
+if [ -n "${APK_SIGN_KEY:-}" ]; then
+	test -r "$APK_SIGN_KEY"
+	set -- --mount "type=bind,source=$APK_SIGN_KEY,target=/signing.key,readonly"
+fi
+
 docker run --rm --network=none \
+	"$@" \
 	-v "$project_dir:/src:ro" -v "$project_dir/dist:/out" \
 	-e "PKG_VERSION=$version" -e "PKG_RELEASE=$release" \
 	-e "OWNER_UID=$(id -u)" -e "OWNER_GID=$(id -g)" \
@@ -20,7 +27,11 @@ docker run --rm --network=none \
 		mkdir -p /pkg/files/usr/share/licenses/luci-theme-mavxa
 		cp /src/LICENSE /src/NOTICE /pkg/files/usr/share/licenses/luci-theme-mavxa/
 		package="luci-theme-mavxa-${PKG_VERSION}-r${PKG_RELEASE}.apk"
-		apk mkpkg --compat 3.0.0 \
+		set --
+		if [ -f /signing.key ]; then
+			set -- --sign-key /signing.key
+		fi
+		apk mkpkg "$@" --compat 3.0.0 \
 			--info name:luci-theme-mavxa \
 			--info "version:${PKG_VERSION}-r${PKG_RELEASE}" \
 			--info "description:Minimal graphite and mint theme for LuCI" \

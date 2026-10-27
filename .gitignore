@@ -1,6 +1,8 @@
 *.ipk
 *.apk
 *.tar.gz
+*.key
+*.pem
 .DS_Store
 .superdesign/
 node_modules/

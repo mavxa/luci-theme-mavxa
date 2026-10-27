@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 set -eu
 
-project_dir=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+project_dir=$(CDPATH='' cd -- "$(dirname -- "$0")/.." && pwd)
 version=$(sed -n 's/^PKG_VERSION:=//p' "$project_dir/Makefile")
 release=$(sed -n 's/^PKG_RELEASE:=//p' "$project_dir/Makefile")
 
