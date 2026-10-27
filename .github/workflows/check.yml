@@ -19,7 +19,25 @@ jobs:
         run: |
           node --check htdocs/luci-static/mavxa/theme.js
           node --check htdocs/luci-static/resources/menu-mavxa.js
-      - name: Check registration script
-        run: sh -n root/etc/uci-defaults/30_luci-theme-mavxa
+      - name: Check shell syntax
+        run: |
+          sh -n root/etc/uci-defaults/30_luci-theme-mavxa
+          sh -n build-pkg.sh
+          sh -n scripts/post-deinstall.sh
+          sh -n tests/package.test.sh
+          sh -n install.sh
+          sh -n tests/installer.test.sh
       - name: Test theme behavior
         run: node --test tests/theme.test.mjs
+      - name: Build APK
+        run: ./build-pkg.sh
+      - name: Test APK installation
+        run: ./tests/package.test.sh
+      - name: Test installer validation
+        run: ./tests/installer.test.sh
+      - uses: actions/upload-artifact@v7.0.2
+        with:
+          name: luci-theme-mavxa-unsigned-apk
+          path: |
+            dist/*.apk
+            dist/*.apk.sha256
